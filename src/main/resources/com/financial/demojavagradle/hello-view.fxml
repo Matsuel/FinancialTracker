@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" stylesheets="@css/styles.css" fx:controller="com.financial.demojavagradle.controller.ExpenseController">
+    <Text text="Tableau récapitulatif des dépenses" styleClass="kk"/>
+    <TableView fx:id="table">
+        <columns>
+            <TableColumn editable="false" text="Periode" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Period" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Total" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Total" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Logement" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Logement" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Nourriture" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Nourriture" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Sorties" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Sorties" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Voiture/Transport" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Transports" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Voyage" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Voyages" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Impots" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Impots" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" text="Autres" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Autres" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <Button text="Ajouter une ligne" onAction="#addExpense" />
+</VBox>

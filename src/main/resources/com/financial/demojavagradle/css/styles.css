@@ -1,0 +1,28 @@
+VBox {
+    -fx-padding: 20px;
+}
+
+.kk {
+    -fx-font-size: 64px;
+    -fx-font-weight: bold;
+}
+
+/* Change la couleur de chaque cellule d'en-tête */
+.table-view .column-header {
+    -fx-background-color: blue; /* Rouge */
+    -fx-fill: #fff;
+}
+
+/* Change la couleur et le style du texte des en-têtes */
+.table-view .column-header .label {
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-font-weight: bold; /* Gras */
+    -fx-font-size: 14px; /* Taille du texte */
+}
+.table-view {
+    -fx-background-radius: 15px; /* Arrondir les coins du tableau */
+    -fx-border-radius: 15px; /* Arrondir les coins du bord */
+    -fx-border-width: 2px; /* Largeur de la bordure */
+    -fx-border-color: #000; /* Couleur de la bordure */
+    -fx-padding: 15px;
+}

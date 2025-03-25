@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.beryx.jlink' version '3.1.1'
+}
+
+group 'com.financial'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.10.2'
+}
+
+sourceCompatibility = '23'
+targetCompatibility = '23'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'com.financial.demojavagradle'
+    mainClass = 'com.financial.demojavagradle.HelloApplication'
+}
+
+javafx {
+    version = '17.0.6'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jlink {
+    launcher {
+        name = "FinancialTracker"
+    }
+    jpackage {
+        imageName = "FinancialTracker"
+        installerType = "exe"
+        installerOptions = [
+                "--win-menu",
+                "--win-shortcut",
+                "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.ico").absolutePath,
+        ]
+        imageOptions = [
+                "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.ico").absolutePath,
+        ]
+    }
+}
+
+jlinkZip {
+    group = 'distribution'
+}
