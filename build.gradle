@@ -52,23 +52,36 @@
             imageName = "FinancialTracker"
 
             def os = System.getProperty("os.name").toLowerCase()
-            def iconsPath
 
             if (os.contains("win")) {
                 installerType = "exe"
-                iconPath = file("src/main/resources/com/financial/demojavagradle/icons/erwan.ico").absolutePath
-                installerOptions = ["--win-menu", "--win-shortcut"]
+                installerOptions = [
+                        "--win-menu",
+                        "--win-shortcut",
+                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.ico").absolutePath
+                ]
+                imageOptions = [
+                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.ico").absolutePath
+                ]
             } else if (os.contains("mac")) {
                 installerType = "dmg"
-                iconPath = file("src/main/resources/com/financial/demojavagradle/icons/erwan.icns").absolutePath
-            } else if (os.contains("nix") || os.contains("nux")) {
+                installerOptions = [
+                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.icns").absolutePath
+                ]
+                imageOptions = [
+                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.icns").absolutePath
+                ]
+            } else {
                 installerType = "deb"
-                iconPath = file("src/main/resources/com/financial/demojavagradle/icons/erwan.png").absolutePath
+                installerOptions = [
+                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.png").absolutePath
+                ]
+                imageOptions = [
+                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.png").absolutePath
+                ]
             }
-
-            installerOptions += ["--icon", iconPath]
-            imageOptions += ["--icon", iconPath]
         }
+
     }
 
     jlinkZip {
