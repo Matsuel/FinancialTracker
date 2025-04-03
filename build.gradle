@@ -1,89 +1,93 @@
-    plugins {
-        id 'java'
-        id 'application'
-        id 'org.javamodularity.moduleplugin' version '1.8.12'
-        id 'org.openjfx.javafxplugin' version '0.0.13'
-        id 'org.beryx.jlink' version '3.1.1'
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.beryx.jlink' version '3.1.1'
+}
+
+group 'com.financial'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.10.2'
+}
+
+sourceCompatibility = '23'
+targetCompatibility = '23'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'com.financial.demojavagradle'
+    mainClass = 'com.financial.demojavagradle.HelloApplication'
+}
+
+javafx {
+    version = '17.0.6'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    implementation("org.xerial:sqlite-jdbc:3.44.1.0")
+    implementation("org.apache.logging.log4j:log4j-core:2.22.1")
+    implementation("org.slf4j:slf4j-log4j12:2.0.11")
+    implementation("org.slf4j:slf4j-api:2.0.11")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jlink {
+    launcher {
+        name = "FinancialTracker"
     }
+    jpackage {
+        imageName = "FinancialTracker"
 
-    group 'com.financial'
-    version '1.0'
+        def os = System.getProperty("os.name").toLowerCase()
 
-    repositories {
-        mavenCentral()
-    }
-
-    ext {
-        junitVersion = '5.10.2'
-    }
-
-    sourceCompatibility = '23'
-    targetCompatibility = '23'
-
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-    }
-
-    application {
-        mainModule = 'com.financial.demojavagradle'
-        mainClass = 'com.financial.demojavagradle.HelloApplication'
-    }
-
-    javafx {
-        version = '17.0.6'
-        modules = ['javafx.controls', 'javafx.fxml']
-    }
-
-    dependencies {
-        implementation("org.xerial:sqlite-jdbc:3.44.1.0")
-        testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-    }
-
-    test {
-        useJUnitPlatform()
-    }
-
-    jlink {
-        launcher {
-            name = "FinancialTracker"
+        if (os.contains("win")) {
+            installerType = "exe"
+            installerOptions = [
+                    "--win-menu",
+                    "--win-shortcut",
+                    "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.ico").absolutePath
+            ]
+            imageOptions = [
+                    "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.ico").absolutePath
+            ]
+        } else if (os.contains("mac")) {
+            installerType = "dmg"
+            installerOptions = [
+                    "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.icns").absolutePath
+            ]
+            imageOptions = [
+                    "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.icns").absolutePath
+            ]
+        } else {
+            installerType = "deb"
+            installerOptions = [
+                    "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.png").absolutePath
+            ]
+            imageOptions = [
+                    "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.png").absolutePath
+            ]
         }
-        jpackage {
-            imageName = "FinancialTracker"
-
-            def os = System.getProperty("os.name").toLowerCase()
-
-            if (os.contains("win")) {
-                installerType = "exe"
-                installerOptions = [
-                        "--win-menu",
-                        "--win-shortcut",
-                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.ico").absolutePath
-                ]
-                imageOptions = [
-                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.ico").absolutePath
-                ]
-            } else if (os.contains("mac")) {
-                installerType = "dmg"
-                installerOptions = [
-                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.icns").absolutePath
-                ]
-                imageOptions = [
-                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.icns").absolutePath
-                ]
-            } else {
-                installerType = "deb"
-                installerOptions = [
-                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.png").absolutePath
-                ]
-                imageOptions = [
-                        "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.png").absolutePath
-                ]
-            }
-        }
-
     }
 
-    jlinkZip {
-        group = 'distribution'
-    }
+}
+
+jlinkZip {
+    group = 'distribution'
+}

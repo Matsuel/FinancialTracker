@@ -22,11 +22,20 @@ public class Database {
      */
     private static final String requiredTable = "Expense";
 
+    private static final Logger logger = Logger.getLogger(Database.class.getName());
+
     public static boolean isOK() {
-        if (!checkDrivers()) return false; //driver errors
+        if (!checkDrivers()) {
+            logger.log(Level.SEVERE, "Could not load JDBC driver");
+            return false;
+        }
 
-        if (!checkConnection()) return false; //can't connect to db
+        if (!checkConnection()) {
+            logger.log(Level.SEVERE, "Could not connect to database");
+            return false;
+        }
 
+        logger.log(Level.INFO, "Database connection established");
         return createTableIfNotExists(); //tables didn't exist
     }
 
@@ -36,7 +45,7 @@ public class Database {
             DriverManager.registerDriver(new JDBC());
             return true;
         } catch (ClassNotFoundException | SQLException classNotFoundException) {
-            Logger.getAnonymousLogger().log(Level.SEVERE, LocalDateTime.now() + ": Could not start SQLite Drivers");
+            logger.log(Level.SEVERE, "Could not load JDBC driver", classNotFoundException);
             return false;
         }
     }
@@ -45,7 +54,7 @@ public class Database {
         try (Connection connection = connect()) {
             return connection != null;
         } catch (SQLException e) {
-            Logger.getAnonymousLogger().log(Level.SEVERE, LocalDateTime.now() + ": Could not connect to database");
+            logger.log(Level.SEVERE, "Could not connect to database", e);
             return false;
         }
     }
@@ -53,24 +62,24 @@ public class Database {
     private static boolean createTableIfNotExists() {
         String createTables =
                 """
-                        CREATE TABLE IF NOT EXISTS expense(
-                             date TEXT NOT NULL,
-                             housing REAL NOT NULL,
-                             food REAL NOT NULL,
-                             goingOut REAL NOT NULL,
-                             transportation REAL NOT NULL,
-                             travel REAL NOT NULL,
-                             tax REAL NOT NULL,
-                             other REAL NOT NULL
-                     );
-                   """;
+                             CREATE TABLE IF NOT EXISTS expense(
+                                  date TEXT NOT NULL,
+                                  housing REAL NOT NULL,
+                                  food REAL NOT NULL,
+                                  goingOut REAL NOT NULL,
+                                  transportation REAL NOT NULL,
+                                  travel REAL NOT NULL,
+                                  tax REAL NOT NULL,
+                                  other REAL NOT NULL
+                          );
+                        """;
 
         try (Connection connection = Database.connect()) {
             PreparedStatement statement = connection.prepareStatement(createTables);
             statement.executeUpdate();
             return true;
         } catch (SQLException exception) {
-            Logger.getAnonymousLogger().log(Level.SEVERE, LocalDateTime.now() + ": Could not find tables in database");
+            logger.log(Level.SEVERE, "Could not create table", exception);
             return false;
         }
     }
@@ -81,9 +90,7 @@ public class Database {
         try {
             connection = DriverManager.getConnection(dbPrefix + location);
         } catch (SQLException exception) {
-            Logger.getAnonymousLogger().log(Level.SEVERE,
-                    LocalDateTime.now() + ": Could not connect to SQLite DB at " +
-                            location);
+            logger.log(Level.SEVERE, "Could not connect to database", exception);
             return null;
         }
         return connection;

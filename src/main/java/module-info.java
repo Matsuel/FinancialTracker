@@ -2,6 +2,7 @@ module com.financial.demojavagradle {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.xerial.sqlitejdbc;
+    requires org.slf4j;
 
 
     opens com.financial.demojavagradle to javafx.fxml;
