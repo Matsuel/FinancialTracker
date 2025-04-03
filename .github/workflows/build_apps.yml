@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
+    name: Build the application
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '23'
+          distribution: 'temurin'
+
+      - name: Extract version from build.gradle
+        id: extract_version
+        run: |
+          $versionLine = Get-Content build.gradle | Select-String -Pattern "^version"
+          $version = $versionLine -replace "version ", "" -replace "'", ""
+          echo "VERSION=$version" >> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Create .deb package
+        run: ./gradlew jpackage
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: FinancialTracker-${{ env.VERSION }}-${{ matrix.os }}
+          path: build/jpackage/*
