@@ -60,6 +60,26 @@ jlink {
                 "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.ico").absolutePath,
         ]
     }
+    jpackage {
+        imageName = "FinancialTracker"
+        installerType = "dmg"
+        installerOptions = [
+                "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.icns").absolutePath,
+        ]
+        imageOptions = [
+                "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.icns").absolutePath,
+        ]
+    }
+    jpackage {
+        imageName = "FinancialTracker"
+        installerType = "deb"
+        installerOptions = [
+                "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.png").absolutePath,
+        ]
+        imageOptions = [
+                "--icon", file("src/main/resources/com/financial/demojavagradle/icons/erwan.png").absolutePath,
+        ]
+    }
 }
 
 jlinkZip {
