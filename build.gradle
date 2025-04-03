@@ -49,6 +49,7 @@ test {
 }
 
 jlink {
+    addExtraDependencies("org.slf4j")
     launcher {
         name = "FinancialTracker"
     }
