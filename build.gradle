@@ -64,9 +64,10 @@
             } else if (os.contains("nix") || os.contains("nux")) {
                 installerType = "deb"
                 iconPath = file("src/main/resources/com/financial/demojavagradle/icons/erwan.png").absolutePath
-            } else {
-                throw new GradleException("Unsupported OS: $os")
             }
+
+            installerOptions += ["--icon", iconPath]
+            imageOptions += ["--icon", iconPath]
         }
     }
 
