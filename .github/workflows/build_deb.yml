@@ -25,3 +25,9 @@ jobs:
 
       - name: Create .deb package
         run: ./gradlew jpackage
+
+      - name: Upload .deb package
+        uses: actions/upload-artifact@v3
+        with:
+          name: FinancialTracker-deb
+          path: build/jpackage/*.deb
