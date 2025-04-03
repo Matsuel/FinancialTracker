@@ -13,8 +13,8 @@
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" stylesheets="@css/styles.css" fx:controller="com.financial.demojavagradle.controller.ExpenseController">
     <MenuBar fx:id="root" xmlns:fx="http://javafx.com/fxml">
         <Menu text="Menu 1">
-            <MenuItem text="Item 1" onAction="#handleMenuItem1"/>
-            <MenuItem text="Item 2" onAction="#handleMenuItem2"/>
+            <MenuItem text="Nouvelle ligne" onAction="#addExpense"/>
+            <MenuItem text="Item 2" onAction="#handleMenuItem1"/>
         </Menu>
     </MenuBar>
     <Text text="Tableau récapitulatif des dépenses" styleClass="kk"/>

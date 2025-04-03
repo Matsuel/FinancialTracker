@@ -13,8 +13,11 @@ import javafx.stage.Stage;
 import javafx.scene.control.Dialog;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class ExpenseController extends Dialog<Line>  {
+
+    private static final Logger logger = Logger.getLogger(ExpenseController.class.getName());
 
 
     @FXML
@@ -49,6 +52,7 @@ public class ExpenseController extends Dialog<Line>  {
         Stage stage = new Stage();
         stage.setTitle("Nouvelle ligne");
         stage.setScene(new Scene(parent));
+        logger.log(java.util.logging.Level.INFO, "Stage created with title: {0}", stage.getTitle());
         stage.showAndWait(); // Attendre la fermeture de la fenêtre
 
         // Récupérer la nouvelle ligne
@@ -62,12 +66,6 @@ public class ExpenseController extends Dialog<Line>  {
     @FXML
     private void handleMenuItem1() {
         // Action à effectuer lorsque le menu item 1 est cliqué
-        System.out.println("Menu item 1 clicked");
-    }
-
-    @FXML
-    private void handleMenuItem2() {
-        // Action à effectuer lorsque le menu item 2 est cliqué
-        System.out.println("Menu item 2 clicked");
+        logger.log(java.util.logging.Level.INFO, "handleMenuItem1");
     }
 }
