@@ -53,11 +53,12 @@ public class ExpenseDAO {
         return expenses;
     }
 
-    public static Line getLastMonthExpenses() {
-        String getLastMonthExpenses = "SELECT * FROM expense ORDER BY date DESC LIMIT 1";
+    public static Line getSelectedPeriodExpense(String period) {
+        String periodExpense = "SELECT * FROM expense WHERE date = ?";
         Line line = new Line();
         try {
-            PreparedStatement pstmt = Objects.requireNonNull(Database.connect()).prepareStatement(getLastMonthExpenses);
+            PreparedStatement pstmt = Objects.requireNonNull(Database.connect()).prepareStatement(periodExpense);
+            pstmt.setString(1, period);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 line.setPeriod(rs.getString("date"));

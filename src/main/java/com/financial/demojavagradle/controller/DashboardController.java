@@ -6,7 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ChoiceBox;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardController {
@@ -18,16 +22,24 @@ public class DashboardController {
     private LineChart<String, Number> expenseLineChart;
 
     @FXML
+    private ChoiceBox<String> periodChoiceBox;
+
+    private String currentPeriod;
+
+    @FXML
     private void initialize() {
         loadPieChartData();
         loadLineChartData();
+        loadPeriodChoiceBox();
+        setupChoiceBoxListener();
     }
 
     private void loadPieChartData() {
-        Line recentExpenses = ExpenseDAO.getLastMonthExpenses();
+        Line recentExpenses = ExpenseDAO.getSelectedPeriodExpense(currentPeriod);
 
         if (recentExpenses.getTotal() == null) return;
 
+        expensePieChart.getData().clear();
         expensePieChart.getData().add(new PieChart.Data("Logement", recentExpenses.getLogement()));
         expensePieChart.getData().add(new PieChart.Data("Nourriture", recentExpenses.getNourriture()));
         expensePieChart.getData().add(new PieChart.Data("Sorties", recentExpenses.getSorties()));
@@ -78,5 +90,32 @@ public class DashboardController {
             expenseLineChart.getData().add(series);
         }
         expenseLineChart.setTitle("Expenses Over Time");
+    }
+
+    private void loadPeriodChoiceBox() {
+        List<String> periods = getLast12Periods();
+        periodChoiceBox.getItems().addAll(periods);
+        periodChoiceBox.getSelectionModel().selectFirst();
+        currentPeriod = periodChoiceBox.getValue();
+        loadPieChartData();
+    }
+
+    private List<String> getLast12Periods() {
+        List<String> periods = new ArrayList<>();
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM");
+
+        for (int i = 0; i < 12; i++) {
+            periods.add(currentDate.minusMonths(i).format(formatter));
+        }
+
+        return periods;
+    }
+
+    private void setupChoiceBoxListener() {
+        periodChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            currentPeriod = newValue;
+            loadPieChartData();
+        });
     }
 }

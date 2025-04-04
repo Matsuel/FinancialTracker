@@ -9,7 +9,7 @@
             prefHeight="400.0" prefWidth="600.0">
 
     <VBox spacing="10" alignment="CENTER">
-        <TextField fx:id="period" promptText="Periode" />
+        <TextField fx:id="period" promptText="Periode aaaa/mm" />
         <TextField fx:id="logement" promptText="Logement" />
         <TextField fx:id="nourriture" promptText="Nourriture" />
         <TextField fx:id="sorties" promptText="Sorties" />
