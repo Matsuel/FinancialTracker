@@ -9,5 +9,5 @@
 
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" stylesheets="@css/styles.css" fx:controller="com.financial.demojavagradle.controller.DashboardController">
     <fx:include source="header.fxml" />
-    <Text text="Tableau récapitulatif des dépenses" styleClass="kk"/>
+    <Text text="Dashboard" styleClass="kk"/>
 </VBox>
