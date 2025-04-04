@@ -4,8 +4,20 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
 <VBox spacing="20.0" xmlns:fx="http://javafx.com/fxml" stylesheets="@css/styles.css" fx:controller="com.financial.demojavagradle.controller.DashboardController">
     <fx:include source="header.fxml" />
     <Text text="Dashboard" styleClass="kk"/>
     <PieChart fx:id="expensePieChart" />
+
+    <LineChart fx:id="expenseLineChart">
+        <xAxis>
+            <CategoryAxis label="Jour du mois" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis label="Montant" />
+        </yAxis>
+    </LineChart>
 </VBox>
