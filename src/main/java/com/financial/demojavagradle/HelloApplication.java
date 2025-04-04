@@ -10,12 +10,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         if (!Database.isOK()) {
             System.exit(1);
         }
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
         Image icons = new Image(getClass().getResourceAsStream("icons/erwan.png"));
 
         Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
