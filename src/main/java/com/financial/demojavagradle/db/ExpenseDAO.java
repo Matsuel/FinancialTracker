@@ -52,4 +52,27 @@ public class ExpenseDAO {
         }
         return expenses;
     }
+
+    public static Line getLastMonthExpenses() {
+        String getLastMonthExpenses = "SELECT * FROM expense ORDER BY date DESC LIMIT 1";
+        Line line = new Line();
+        try {
+            PreparedStatement pstmt = Objects.requireNonNull(Database.connect()).prepareStatement(getLastMonthExpenses);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                line.setPeriod(rs.getString("date"));
+                line.setLogement(rs.getFloat("housing"));
+                line.setNourriture(rs.getFloat("food"));
+                line.setSorties(rs.getFloat("goingOut"));
+                line.setTransports(rs.getFloat("transportation"));
+                line.setVoyages(rs.getFloat("travel"));
+                line.setImpots(rs.getFloat("tax"));
+                line.setAutres(rs.getFloat("other"));
+                line.setTotal(rs.getFloat("housing") + rs.getFloat("food") + rs.getFloat("goingOut") + rs.getFloat("transportation") + rs.getFloat("travel") + rs.getFloat("tax") + rs.getFloat("other"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return line;
+    }
 }
