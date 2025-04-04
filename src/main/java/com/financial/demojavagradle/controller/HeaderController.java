@@ -1,7 +1,6 @@
 package com.financial.demojavagradle.controller;
 
 import com.financial.demojavagradle.HelloApplication;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
