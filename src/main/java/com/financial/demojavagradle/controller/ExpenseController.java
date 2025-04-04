@@ -62,10 +62,4 @@ public class ExpenseController extends Dialog<Line>  {
             table.setItems(items); // Mettre à jour la TableView avec la nouvelle liste
         }
     }
-
-    @FXML
-    private void handleMenuItem1() {
-        // Action à effectuer lorsque le menu item 1 est cliqué
-        logger.log(java.util.logging.Level.INFO, "handleMenuItem1");
-    }
 }

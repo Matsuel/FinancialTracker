@@ -9,12 +9,12 @@ import java.io.IOException;
 public class HeaderController {
 
     @FXML
-    private void handleItem1(ActionEvent event) throws IOException {
+    private void handleItem1() throws IOException {
         HelloApplication.changeScene("hello-view.fxml");
     }
 
     @FXML
-    private void handleItem2(ActionEvent event) throws IOException {
+    private void handleItem2() throws IOException {
         HelloApplication.changeScene("dashboard.fxml");
     }
 }

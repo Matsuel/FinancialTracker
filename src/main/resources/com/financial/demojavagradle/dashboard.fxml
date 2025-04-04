@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" stylesheets="@css/styles.css" fx:controller="com.financial.demojavagradle.controller.DashboardController">
+<VBox spacing="20.0" xmlns:fx="http://javafx.com/fxml" stylesheets="@css/styles.css" fx:controller="com.financial.demojavagradle.controller.DashboardController">
     <fx:include source="header.fxml" />
     <Text text="Dashboard" styleClass="kk"/>
 </VBox>
